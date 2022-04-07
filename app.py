@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify
 # import time
 # from selenium import webdriver
 # from selenium.webdriver.chrome.options import Options  # => 引入Chrome的配置
-
+from decryptJS import js2py_encrypt, js2py_decrypt
 from service import merOrderNo
 
 app = Flask(__name__)
@@ -52,6 +52,24 @@ app = Flask(__name__)
 def get_merOrderNo():
     url = request.args.get('url')
     ret = merOrderNo(url)
+
+    return jsonify(ret)
+
+
+@app.route('/ExecJs', methods=['get'])
+def ExecJs():
+    word = request.args.get('word')
+    type = request.args.get('type')
+    if type == "1":
+        # 1-加密
+        data = js2py_encrypt(word)
+        ret = {"respCode": "1000", "data": data}
+    elif type == "2":
+        # 2-解密
+        data = js2py_decrypt(word)
+        ret = {"respCode": "1000", "data": data}
+    else:
+        ret = {"respCode": "4001", "respMsg": "type参数错误"}
 
     return jsonify(ret)
 
