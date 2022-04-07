@@ -1,8 +1,10 @@
 import binascii
+import time
+
 import requests
 import json
 
-from decryptJS import encrypt, decrypt,js2py_decrypt,js2py_encrypt
+from decryptJS import encrypt, decrypt, js2py_decrypt, js2py_encrypt, pyv8_decrypt, pyv8_encrypt
 
 
 def str2hex(s):
@@ -60,4 +62,7 @@ if __name__ == '__main__':
     "canal=6c696e677869&tranDate=3230323230343035&orderNo=31323032323034303533393939343733&timestamp=31363439303936393832323339&version=1.4.6&macValue=565E6FFA231A5E248FEABEF64DDF12FE&_locale=zh_CN"
     param = "tranDate=20220405&orderNo=1202204053999473&timestamp=1649096982239&version=1.4.6&macValue=565E6FFA231A5E248FEABEF64DDF12FE&canal=lingxi"
     url = "https://yaoyao.cebbank.com/LifePayment/webApp/cashier/index.html?tranDate=20220405&orderNo=1202204053999473&timestamp=1649096982239&version=1.4.6&macValue=565E6FFA231A5E248FEABEF64DDF12FE&canal=lingxi"
+    start_time = time.time()
     print(merOrderNo(param))
+    end_time = time.time()
+    print(end_time - start_time)
